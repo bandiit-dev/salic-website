@@ -1,4 +1,17 @@
 :root {
+  --color-cream: #{$color-cream};
+  --color-green: #{$color-green};
+
+  --font-regular: #{$font-regular};
+  --font-big: #{$font-big};
+  --font-small: #{$font-small};
+
+  --breakpoint-mobile: #{$breakpoint-mobile};
+
+  --space-sm: #{$space-sm};
+  --space-md: #{$space-md};
+  --space-bg: #{$space-bg};
+
   --background: #ffffff;
   --foreground: #171717;
 }
