@@ -4,6 +4,7 @@ import { Work_Sans } from "next/font/google";
 import { Footer } from "@/components/footer/Footer";
 
 import "./globals.scss";
+import { Header } from "@/components/header/Header";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={workSans.variable}>
       <body className={workSans.className}>
+        <Header />
         {children}
         <Footer />
       </body>
