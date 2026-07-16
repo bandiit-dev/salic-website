@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
+
+import { Footer } from "@/components/footer/Footer";
+
 import "./globals.scss";
 
 const workSans = Work_Sans({
@@ -20,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={workSans.variable}>
-      <body className={workSans.className}>{children}</body>
+      <body className={workSans.className}>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

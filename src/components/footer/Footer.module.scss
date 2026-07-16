@@ -1,0 +1,74 @@
+.footer {
+  display: grid;
+  grid-template:
+    "brand navigation" auto
+    ". ." 1fr
+    "copyright ." auto
+    / 1fr auto;
+  min-height: 345px;
+  padding: $space-md;
+  color: $color-cream;
+  background-color: $color-green;
+  font-size: $font-regular;
+  font-weight: 400;
+
+  &__brand {
+    grid-area: brand;
+    width: 195px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__navigation {
+    grid-area: navigation;
+
+    ul {
+      display: flex;
+      gap: $space-md;
+      align-items: center;
+      list-style: none;
+    }
+
+    a {
+      transition: opacity 180ms ease;
+
+      &:hover,
+      &:focus-visible {
+        opacity: 0.65;
+      }
+    }
+  }
+
+  &__copyright {
+    grid-area: copyright;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .footer {
+    grid-template:
+      "brand"
+      "navigation"
+      "copyright"
+      / 1fr;
+    min-height: auto;
+    padding: $space-md $space-sm;
+    gap: $space-md;
+    font-size: $font-sm;
+
+    &__brand {
+      width: 160px;
+    }
+
+    &__navigation ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-sm;
+    }
+  }
+}

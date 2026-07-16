@@ -6,14 +6,14 @@ export default async function Homepage() {
 
   if (!homepage) {
     return (
-      <main>
+      <main id="home">
         <h1>Homepage content has not been created yet.</h1>
       </main>
     );
   }
 
   return (
-    <main>
+    <main id="home">
       <h1>Salic - Arquitetura de Interiores</h1>
     </main>
   );
