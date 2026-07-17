@@ -108,12 +108,6 @@ export const homepageType = defineType({
       type: "object",
       fields: [
         defineField({
-          name: "eyebrow",
-          title: "Small heading",
-          type: "string",
-        }),
-
-        defineField({
           name: "title",
           title: "Title",
           type: "string",
