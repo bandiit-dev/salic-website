@@ -2,11 +2,16 @@ import {
   AboutUs,
   type AboutUsContent,
 } from "@/components/about-us/AboutUs";
+import {
+  ContactUs,
+  type ContactUsContent,
+} from "@/components/contact-us/ContactUs";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
 
 type HomepageData = {
   about?: AboutUsContent | null;
+  contact?: ContactUsContent | null;
 };
 
 export default async function Homepage() {
@@ -24,6 +29,7 @@ export default async function Homepage() {
     <main id="home">
       <h1>Salic - Arquitetura de Interiores</h1>
       <AboutUs content={homepage.about} />
+      <ContactUs content={homepage.contact} />
     </main>
   );
 }

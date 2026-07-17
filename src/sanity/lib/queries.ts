@@ -51,10 +51,13 @@ export const HOMEPAGE_QUERY = defineQuery(`
 
     contact {
       title,
-      description,
+      "address": coalesce(address, description),
       email,
       phone,
-      buttonLabel
+      image {
+        ...,
+        alt
+      }
     }
   }
 `);

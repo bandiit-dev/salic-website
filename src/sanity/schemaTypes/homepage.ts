@@ -204,11 +204,27 @@ export const homepageType = defineType({
         }),
 
         defineField({
-          name: "description",
-          title: "Description",
-          type: "text",
-          rows: 4,
+          name: "image",
+          title: "Image",
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Alternative text",
+              type: "string",
+              validation: (rule) => rule.required(),
+            }),
+          ],
           validation: (rule) => rule.required(),
+        }),
+
+        defineField({
+          name: "phone",
+          title: "Phone number",
+          type: "string",
         }),
 
         defineField({
@@ -219,16 +235,11 @@ export const homepageType = defineType({
         }),
 
         defineField({
-          name: "phone",
-          title: "Phone number",
-          type: "string",
-        }),
-
-        defineField({
-          name: "buttonLabel",
-          title: "Button label",
-          type: "string",
-          initialValue: "Contact us",
+          name: "address",
+          title: "Address",
+          type: "text",
+          rows: 4,
+          validation: (rule) => rule.required(),
         }),
       ],
     }),

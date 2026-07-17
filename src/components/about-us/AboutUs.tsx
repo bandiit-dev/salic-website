@@ -35,8 +35,8 @@ export function AboutUs({ content }: AboutUsProps) {
     return null;
   }
 
-  const { image, text, title } = content;
-  const heading = getHeadingParts(content.eyebrow, title);
+  const { image, text } = content;
+  const heading = getHeadingParts(content.title);
   const imageUrl = urlForImage(image)
     .width(1600)
     .height(1600)
