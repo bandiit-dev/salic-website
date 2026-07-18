@@ -6,8 +6,15 @@ import {
   ContactUs,
   type ContactUsContent,
 } from "@/components/contact-us/ContactUs";
+import {
+  ProjectSlider,
+  type ProjectSliderProject,
+} from "@/components/project-slider/ProjectSlider";
 import { client } from "@/sanity/lib/client";
-import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
+import {
+  HOMEPAGE_QUERY,
+  PROJECT_SLIDER_QUERY,
+} from "@/sanity/lib/queries";
 
 type HomepageData = {
   about?: AboutUsContent | null;
@@ -15,7 +22,10 @@ type HomepageData = {
 };
 
 export default async function Homepage() {
-  const homepage = await client.fetch<HomepageData | null>(HOMEPAGE_QUERY);
+  const [homepage, projects] = await Promise.all([
+    client.fetch<HomepageData | null>(HOMEPAGE_QUERY),
+    client.fetch<ProjectSliderProject[]>(PROJECT_SLIDER_QUERY),
+  ]);
 
   if (!homepage) {
     return (
@@ -29,6 +39,7 @@ export default async function Homepage() {
     <main id="home">
       <h1>Salic - Arquitetura de Interiores</h1>
       <AboutUs content={homepage.about} />
+      <ProjectSlider projects={projects} />
       <ContactUs content={homepage.contact} />
     </main>
   );

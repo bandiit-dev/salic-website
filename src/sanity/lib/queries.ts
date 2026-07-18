@@ -78,6 +78,22 @@ export const PROJECTS_QUERY = defineQuery(`
   }
 `);
 
+export const PROJECT_SLIDER_QUERY = defineQuery(`
+  *[
+    _type == "project" &&
+    defined(slug.current) &&
+    defined(coverImage.asset)
+  ] | order(order asc, title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    coverImage {
+      ...,
+      alt
+    }
+  }
+`);
+
 export const PROJECT_QUERY = defineQuery(`
   *[
     _type == "project" &&

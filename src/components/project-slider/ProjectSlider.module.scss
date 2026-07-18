@@ -1,0 +1,128 @@
+.projectSlider {
+  overflow: hidden;
+  padding-block: 100px 180px;
+  color: $color-green;
+  background-color: $color-cream;
+
+  &__title {
+    margin: 0 60px $space-md;
+    font-size: clamp(56px, 7vw, $font-bg);
+    font-weight: 100;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  &__swiper {
+    width: calc(100% - 120px);
+    overflow: visible;
+  }
+
+  &__slide {
+    height: min(600px, calc((100vw - 120px) * 0.6));
+    cursor: pointer;
+  }
+
+  &__project,
+  &__mediaLink,
+  &__media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__mediaLink {
+    display: block;
+  }
+
+  &__media {
+    overflow: hidden;
+    filter: blur(5px);
+    opacity: 0.85;
+    transition:
+      filter 500ms ease-in-out,
+      opacity 500ms ease-in-out;
+
+    img {
+      object-fit: cover;
+      user-select: none;
+    }
+  }
+
+  &__slide:global(.swiper-slide-active) {
+    cursor: grab;
+
+    .projectSlider__media {
+      filter: none;
+      opacity: 1;
+    }
+
+    .projectSlider__link {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &__link {
+    position: absolute;
+    bottom: 0;
+    left: $space-md;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    min-height: 42px;
+    padding: 10px 16px;
+    color: $color-cream;
+    background-color: $color-green;
+    font-size: $font-sm;
+    line-height: 1;
+    transform: translateY(50%);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 200ms ease-in-out,
+      visibility 200ms ease-in-out;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .projectSlider {
+    padding-block: 30px $space-md;
+
+    &__title {
+      margin: 0 30px 40px;
+      font-size: clamp(48px, 14vw, 64px);
+    }
+
+    &__swiper {
+      width: calc(100% - 60px);
+    }
+
+    &__slide {
+      height: min(600px, calc((100vw - 60px) * 1.4));
+    }
+
+    &__link {
+      left: $space-sm;
+      gap: 16px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectSlider__media,
+  .projectSlider__link {
+    transition: none;
+  }
+}
