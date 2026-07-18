@@ -1,22 +1,21 @@
-import {
-  AboutUs,
-  type AboutUsContent,
-} from "@/components/about-us/AboutUs";
+import { AboutUs, type AboutUsContent } from "@/components/about-us/AboutUs";
 import {
   ContactUs,
   type ContactUsContent,
 } from "@/components/contact-us/ContactUs";
 import {
+  MainSlider,
+  type MainSliderItem,
+} from "@/components/main-slider/MainSlider";
+import {
   ProjectSlider,
   type ProjectSliderProject,
 } from "@/components/project-slider/ProjectSlider";
 import { client } from "@/sanity/lib/client";
-import {
-  HOMEPAGE_QUERY,
-  PROJECT_SLIDER_QUERY,
-} from "@/sanity/lib/queries";
+import { HOMEPAGE_QUERY, PROJECT_SLIDER_QUERY } from "@/sanity/lib/queries";
 
 type HomepageData = {
+  slider?: MainSliderItem[] | null;
   about?: AboutUsContent | null;
   contact?: ContactUsContent | null;
 };
@@ -37,7 +36,7 @@ export default async function Homepage() {
 
   return (
     <main id="home">
-      <h1>Salic - Arquitetura de Interiores</h1>
+      <MainSlider items={homepage.slider} />
       <AboutUs content={homepage.about} />
       <ProjectSlider projects={projects} />
       <ContactUs content={homepage.contact} />

@@ -1,0 +1,39 @@
+.mainSlider {
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  margin-top: -($space-md * 2 + 75px);
+  overflow: hidden;
+
+  &__swiper,
+  &__slide,
+  &__link,
+  &__media {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__slide {
+    overflow: hidden;
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+  }
+
+  &__media {
+    position: relative;
+
+    img {
+      object-fit: cover;
+      user-select: none;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .mainSlider {
+    margin-top: -($space-sm * 2 + 48px);
+  }
+}
