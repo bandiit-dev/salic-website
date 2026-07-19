@@ -14,7 +14,12 @@ import {
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY, PROJECT_SLIDER_QUERY } from "@/sanity/lib/queries";
 
+import styles from "./Homepage.module.scss";
+
 type HomepageData = {
+  seo?: {
+    heading?: string | null;
+  } | null;
   slider?: MainSliderItem[] | null;
   about?: AboutUsContent | null;
   contact?: ContactUsContent | null;
@@ -36,6 +41,9 @@ export default async function Homepage() {
 
   return (
     <main id="home">
+      <h1 className={styles.visuallyHidden}>
+        {homepage.seo?.heading ?? "Salic Arquitetura de Interiores"}
+      </h1>
       <MainSlider items={homepage.slider} />
       <AboutUs content={homepage.about} />
       <ProjectSlider projects={projects} />

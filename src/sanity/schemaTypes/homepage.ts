@@ -21,6 +21,15 @@ export const homepageType = defineType({
         }),
 
         defineField({
+          name: "heading",
+          title: "Homepage heading (H1)",
+          description:
+            "The main semantic heading used by search engines and screen readers.",
+          type: "string",
+          validation: (rule) => rule.max(100),
+        }),
+
+        defineField({
           name: "description",
           title: "Meta description",
           type: "text",
