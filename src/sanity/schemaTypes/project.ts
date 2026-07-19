@@ -114,6 +114,20 @@ export const projectType = defineType({
     }),
 
     defineField({
+      name: "areaSquareMeters",
+      title: "Area (m²)",
+      type: "number",
+      validation: (rule) => rule.positive(),
+    }),
+
+    defineField({
+      name: "projectType",
+      title: "Project type",
+      description: "Example: Interior design",
+      type: "string",
+    }),
+
+    defineField({
       name: "featured",
       title: "Featured project",
       description: "Show this project in highlighted homepage sections.",

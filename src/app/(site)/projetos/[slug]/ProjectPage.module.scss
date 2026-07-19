@@ -1,0 +1,157 @@
+.projectPage {
+  color: $color-green;
+  background-color: $color-cream;
+
+  &__hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    margin-top: -($space-md * 2 + 75px);
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    padding: 0 60px 60px;
+  }
+
+  &__intro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  &__card {
+    position: relative;
+    z-index: 1;
+    margin-top: -100px;
+    padding: 60px;
+    color: $color-cream;
+    background-color: $color-green;
+
+    h1 {
+      font-size: clamp(56px, 7vw, $font-bg);
+      font-weight: 100;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+  }
+
+  &__description {
+    margin-top: $space-md;
+    font-size: $font-regular;
+    line-height: 1.3;
+
+    p + p {
+      margin-top: $space-sm;
+    }
+  }
+
+  &__technical {
+    margin-top: $space-md;
+    font-size: $font-sm;
+    text-transform: uppercase;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    dl > div {
+      display: flex;
+      justify-content: space-between;
+      gap: $space-sm;
+      padding: 12px 10px;
+      border-top: 1px solid currentColor;
+    }
+
+    dt,
+    dd {
+      margin: 0;
+    }
+
+    dd {
+      font-weight: 400;
+      text-align: right;
+    }
+  }
+
+  &__pattern {
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+
+    figure,
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: 10px;
+      font-size: $font-sm;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .projectPage {
+    &__hero {
+      margin-top: -($space-sm * 2 + 48px);
+    }
+
+    &__body {
+      padding: 0 30px 30px;
+    }
+
+    &__intro {
+      grid-template-columns: 1fr;
+    }
+
+    &__card {
+      margin-top: -100px;
+      padding: 30px;
+
+      h1 {
+        font-size: clamp(42px, 13vw, 60px);
+      }
+    }
+
+    &__description {
+      margin-top: 30px;
+      font-size: $font-sm;
+    }
+
+    &__technical {
+      margin-top: 30px;
+      font-size: 12px;
+    }
+
+    &__pattern {
+      display: none;
+    }
+
+    &__gallery {
+      gap: 30px;
+      margin-top: 30px;
+    }
+  }
+}

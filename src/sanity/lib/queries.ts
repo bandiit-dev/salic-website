@@ -106,6 +106,8 @@ export const PROJECT_QUERY = defineQuery(`
     description,
     location,
     completionYear,
+    areaSquareMeters,
+    projectType,
 
     coverImage {
       ...,
@@ -116,7 +118,8 @@ export const PROJECT_QUERY = defineQuery(`
       _key,
       ...,
       alt,
-      caption
+      caption,
+      "dimensions": asset->metadata.dimensions
     }
   }
 `);
