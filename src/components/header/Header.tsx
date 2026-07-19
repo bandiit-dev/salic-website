@@ -4,23 +4,25 @@ import type { MouseEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import styles from "./Header.module.scss";
 
 const MENU_TRANSITION_MS = 1600;
+const PENDING_SECTION_KEY = "salic-pending-section";
 
 const navigationItems = [
-  { href: "/#home", label: "Home" },
-  { href: "/#sobre", label: "Sobre" },
-  { href: "/#projetos", label: "Projetos" },
-  { href: "/#contato", label: "Contato" },
+  { href: "/", label: "Home", sectionId: "home" },
+  { href: "/#sobre", label: "Sobre", sectionId: "sobre" },
+  { href: "/#projetos", label: "Projetos", sectionId: "projetos" },
+  { href: "/#contato", label: "Contato", sectionId: "contato" },
 ] as const;
 
 type MenuState = "closed" | "open" | "closing";
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [menuState, setMenuState] = useState<MenuState>("closed");
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMenuOpen = menuState === "open";
@@ -60,13 +62,79 @@ export function Header() {
     openMenu();
   };
 
+  const scrollToSection = useCallback((sectionId: string) => {
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "auto"
+      : "smooth";
+
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${window.location.pathname}${window.location.search}`,
+    );
+
+    if (sectionId === "home") {
+      window.scrollTo({ top: 0, behavior });
+      return;
+    }
+
+    document
+      .getElementById(sectionId)
+      ?.scrollIntoView({ behavior, block: "start" });
+  }, []);
+
+  const navigateToSection = useCallback(
+    (sectionId: string) => {
+      if (pathname === "/") {
+        scrollToSection(sectionId);
+        return;
+      }
+
+      window.sessionStorage.setItem(PENDING_SECTION_KEY, sectionId);
+      router.push("/", { scroll: false });
+    },
+    [pathname, router, scrollToSection],
+  );
+
   const handleNavigation = (
     event: MouseEvent<HTMLAnchorElement>,
-    href: string,
+    sectionId: string,
+    closeMobileMenu = false,
   ) => {
     event.preventDefault();
-    closeMenu(() => router.push(href));
+
+    if (closeMobileMenu) {
+      closeMenu(() => navigateToSection(sectionId));
+      return;
+    }
+
+    navigateToSection(sectionId);
   };
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const pendingSection = window.sessionStorage.getItem(PENDING_SECTION_KEY);
+    const legacyHashSection = window.location.hash
+      .slice(1)
+      .split("#")[0];
+    const sectionId = pendingSection || legacyHashSection;
+
+    if (!sectionId) {
+      return;
+    }
+
+    window.sessionStorage.removeItem(PENDING_SECTION_KEY);
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      scrollToSection(sectionId);
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [pathname, scrollToSection]);
 
   useEffect(() => {
     if (menuState === "closed") {
@@ -105,8 +173,9 @@ export function Header() {
     <header className={styles.header}>
       <Link
         className={styles.header__brand}
-        href="/#home"
+        href="/"
         aria-label="Ir para o início"
+        onClick={(event) => handleNavigation(event, "home")}
       >
         <Image
           src="/images/logo-salic.svg"
@@ -121,9 +190,14 @@ export function Header() {
         aria-label="Navegação do Header"
       >
         <ul>
-          {navigationItems.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href}>{label}</Link>
+          {navigationItems.map(({ href, label, sectionId }) => (
+            <li key={sectionId}>
+              <Link
+                href={href}
+                onClick={(event) => handleNavigation(event, sectionId)}
+              >
+                {label}
+              </Link>
             </li>
           ))}
         </ul>
@@ -153,12 +227,14 @@ export function Header() {
         data-state={menuState}
       >
         <ul>
-          {navigationItems.map(({ href, label }) => (
-            <li key={href}>
+          {navigationItems.map(({ href, label, sectionId }) => (
+            <li key={sectionId}>
               <Link
                 href={href}
                 tabIndex={isMenuOpen ? undefined : -1}
-                onClick={(event) => handleNavigation(event, href)}
+                onClick={(event) =>
+                  handleNavigation(event, sectionId, true)
+                }
               >
                 {label}
               </Link>
