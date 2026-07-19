@@ -66,6 +66,9 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.shortDescription,
+    alternates: {
+      canonical: `/projetos/${slug}`,
+    },
   };
 }
 

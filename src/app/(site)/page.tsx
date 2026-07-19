@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { AboutUs, type AboutUsContent } from "@/components/about-us/AboutUs";
 import {
   ContactUs,
@@ -15,6 +17,12 @@ import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY, PROJECT_SLIDER_QUERY } from "@/sanity/lib/queries";
 
 import styles from "./Homepage.module.scss";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 type HomepageData = {
   seo?: {

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 
+import { siteUrl } from "@/lib/site-url";
+
 import "./globals.scss";
 
 const workSans = Work_Sans({
@@ -10,6 +12,7 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: "Salic - Arquitetura de Interiores",
   description: "Arquitetura de Interiores com presença e criatividade.",
 };
