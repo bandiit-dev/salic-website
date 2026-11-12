@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     loadPaths: [path.join(process.cwd(), "src/styles")],
   },
   images: {
+    qualities: [95],
     remotePatterns: [
       {
         protocol: "https",
